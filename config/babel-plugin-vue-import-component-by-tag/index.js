@@ -1,7 +1,5 @@
 const _ = require('lodash');
 const fs= require('fs');
-// addDefault import _default from "source"
-// addSideEffect import "source"
 const { addDefault, addSideEffect } = require('@babel/helper-module-imports');
 const render = require('json-templater/string');
 const pathLib = require('path');
@@ -16,6 +14,7 @@ function posixPath(path) {
 }
 
 const registerPath = pathLib.posix.join(posixPath(__dirname), 'runtime', 'register.js');// 获取register.js的绝对路径
+
 function isExcludeFile(state) {
   const {
     filename: filePath,
@@ -25,6 +24,12 @@ function isExcludeFile(state) {
   } = state;
   return exclude && anymatch(exclude, posixPath(filePath));
 }
+
+/**
+ * @description: 路径下是否含有该文件或文件夹
+ * @param {*} src
+ * @return {*} boolean
+ */
 
 function hasPathOrFile(src) {
   const curPath = pathLib.posix.join(posixPath(__dirname),'../../node_modules/', src)
@@ -105,17 +110,8 @@ module.exports = (babel) => {
           });
         const { name: registerName } = addDefault(path, registerPath);
         const componentsCode = `[${components.map((component) => component.code).join(',')}]`;
-        const exportVarNode = path.scope.generateUidIdentifier('component'); // 生成component标识符
-        // variableDeclaration 生成一个语法树 insertBefore并在节点之前插入
+        const exportVarNode = path.scope.generateUidIdentifier('component'); 
         path.insertBefore(t.variableDeclaration('const', [
-
-          /**
-           * variableDeclarator:  //变量赋值语句
-           *（ t.variableDeclarator(id, init)
-           * id: LVal(必填)  //赋值语句左边的变量
-           * iit: Expression (默认为：null)   //赋值语句右边的表达
-           */
-
           t.variableDeclarator(exportVarNode, path.node.declaration),
         ]));
 
