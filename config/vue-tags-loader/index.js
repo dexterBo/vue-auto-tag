@@ -9,12 +9,11 @@ const parser = new Parser();
 
 function run(source, context) {
   const { resourcePath, resourceQuery } = context;
-
   if (!resourceQuery.includes('type=template')) {
     return source;
   }
 
-  const { exclude } = getOptions(context) || {};
+  const { exclude } = getOptions(context) || {}; 
   if (exclude && anymatch(exclude, pathUtils.posixPath(resourcePath))) {
     return source;
   }

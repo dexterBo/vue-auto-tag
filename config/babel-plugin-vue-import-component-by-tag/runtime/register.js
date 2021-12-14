@@ -18,7 +18,7 @@ export default function (options, components) {
     for (const key in option.component || {}) {
       if (Object.hasOwnProperty.call(option.component, key)) {
         const childComponent = option.component[key];
-        if(_.isObject(childComponent) && !_.isFunction(childComponent) &&  _.isString(childComponent.name)) {
+        if(_.isObject(childComponent) && !_.isFunction(childComponent) && _.isString(childComponent.name)) {
           components[childComponent.name] = childComponent
         }
       }

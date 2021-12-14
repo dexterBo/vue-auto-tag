@@ -3,7 +3,7 @@ const fs= require('fs');
 const { addDefault, addSideEffect } = require('@babel/helper-module-imports');
 const render = require('json-templater/string');
 const pathLib = require('path');
-const { get: getTags } = require('../vue-tags-loader/store');
+const { get } = require('../vue-tags-loader/store');
 const anymatch = require('anymatch'); // 匹配路径
 
 function posixPath(path) {
@@ -40,7 +40,7 @@ function hasPathOrFile(src) {
 }
 
 module.exports = (babel) => {
-  const { types: t, template } = babel;
+  const { types, template } = babel;
   let tags = [];
   return {
     visitor: {
@@ -48,8 +48,9 @@ module.exports = (babel) => {
         if (isExcludeFile(state)) {
           return;
         }
-        tags = getTags(state.filename) || [];
+        tags = get(state.filename) || [];
       },
+      // 兼容代码中含有JSX代码
       JSXOpeningElement(path, state) {
         if (isExcludeFile(state)) {
           return;
@@ -108,12 +109,15 @@ module.exports = (babel) => {
             }
             return component;
           });
+
+        //分析原有注册组件，并将其拆分出来。
         const { name: registerName } = addDefault(path, registerPath);
         const componentsCode = `[${components.map((component) => component.code).join(',')}]`;
         const exportVarNode = path.scope.generateUidIdentifier('component'); 
-        path.insertBefore(t.variableDeclaration('const', [
-          t.variableDeclarator(exportVarNode, path.node.declaration),
-        ]));
+        const originalAst = types.variableDeclaration('const', [
+          types.variableDeclarator(exportVarNode, path.node.declaration),
+        ])
+        path.insertBefore(originalAst);
 
         const buildExtendComponents = template(`
           const components = %%exportName%%.components || {};
