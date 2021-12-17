@@ -5,4 +5,4 @@
 
 ## 非全局导入的形式，但能提供全局导入的体验。
 
-## 支持element-ui、ant-desgin-vue
+## 支持element-ui、ant-desgin-vue、view-desgin
