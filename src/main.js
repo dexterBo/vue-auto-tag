@@ -3,6 +3,7 @@ import App from './App.vue'
 import { Icon } from 'element-ui'
 import { Modal }from 'ant-design-vue';
 import 'element-ui/lib/theme-chalk/icon.css';
+import 'view-design/dist/styles/iview.css';
 
 Modal.install(Vue)
 

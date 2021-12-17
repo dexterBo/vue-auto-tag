@@ -12,20 +12,23 @@
 
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <List />
+    <AntDesgin></AntDesgin>
+    <ViewUI></ViewUI>
+    <ElementUI></ElementUI>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import List from './components/List.vue'
+import AntDesgin from './components/AntDesgin.vue'
+import ViewUI from './components/ViewUI.vue'
+import ElementUI from './components/ElementUI.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    List,
+    AntDesgin,
+    ViewUI,
+    ElementUI,
   }
 }
 </script>
