@@ -2,7 +2,7 @@ module.exports = {
   presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
     [
-      './config/babel-plugin-vue-import-component-by-tag',
+      'babel-plugin-vue-auto-import',
       {
         lib(tag) {
           // 如果某个标签需要自动导入，请返回导入路径, 不需要则返回null

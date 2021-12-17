@@ -9,12 +9,14 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.7.8",
+    "babel-plugin-vue-auto-import": "^1.0.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
     "json-templater": "^1.2.0",
     "node-html-parser": "5.1.0",
     "sync-disk-cache": "^2.1.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-template-label-loader": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
